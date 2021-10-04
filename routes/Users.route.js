@@ -44,7 +44,7 @@ router.get("/",  async (req, res) =>{
 
   });
 // Get User by ID
-router.get('/:id', function(req, res, next) {
+router.get('/:id', async (req, res) => {
     User.findById(req.params.id,function(err,data){
       if(err) throw err;
       res.json(data);

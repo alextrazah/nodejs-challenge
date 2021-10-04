@@ -14,12 +14,12 @@ router.get("/",  async (req, res) =>{
   });
 
 
-  router.get("/test", function (req, res, next) {
+  router.get("/test", async (req, res) =>{
     res.send("data");
 
   });
 // Get todo by ID
-router.get('/:id', function(req, res, next) {
+router.get('/:id',async (req, res) => {
     Todo.findById(req.params.id,function(err,data){
       if(err) throw err;
       res.json(data);
@@ -28,7 +28,7 @@ router.get('/:id', function(req, res, next) {
 
 //Add todo 
 
-router.post("/add", async function (req, res, next) {
+router.post("/add", async (req, res) => {
     const obj = JSON.parse(JSON.stringify(req.body));
     Todo.create(obj);
     res.send("Done");
@@ -36,7 +36,7 @@ router.post("/add", async function (req, res, next) {
 
 
 //Delete todo  
-router.delete('/:id',function(req, res, next) {
+router.delete('/:id',async (req, res) => {
     Todo.deleteOne({ _id: req.params.id })
     .then(() => res.status(200).json({ msg: `Post with id : ${req.params.id} has been removed` }))
     .catch(err => res.status(400).json({ error: err }))
