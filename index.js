@@ -16,7 +16,7 @@ require("dotenv").config();
 // import connect
 require("./database/connect");
 const app = express();
-
+const port= process.env.PORT || 8080;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json({ limit: "50mb" }));
@@ -28,4 +28,7 @@ app.use("/api/v1/todos", todoRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/mail", mailRouter);
 app.use("/api/v1/upload", uploadRouter);
-app.listen(8080);
+app.listen(port, ()=>{
+    console.log("server is listening on ", port);
+} )
+

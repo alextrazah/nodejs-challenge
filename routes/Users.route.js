@@ -15,13 +15,15 @@ router.get("/",  async (req, res) =>{
 // add todo to user
   router.post("/addtodo/:id",  async (req, res) =>{
     try{
-        const userUpdated = await User.findByIdAndUpdate(req.params.id,{$push:{ ToDo: req.body.ToDo }}, {new : true});
-        res.json(userUpdated);
+        const addtodo = await User.findByIdAndUpdate(req.params.id,{$push:{ ToDo: req.body.ToDo }}, {new : true});
+        res.json(addtodo);
     }catch(err){
         console.log(err);
         res.status(500).json({message:"internal server err"});
     }
   });
+  // delete todo to user
+
   router.get("/deletetodo/:id",  async (req, res) =>{
     try{
         const data = await User.findByIdAndUpdate(req.params.id,{$pull:{ ToDo: req.body.ToDo }}, {new : true});
@@ -32,37 +34,35 @@ router.get("/",  async (req, res) =>{
     }
   });
 
-  router.get("/mail",  async (req, res) =>{
-    try{
-      
-        res.send("mail sended");
-    }catch(err){
-        console.log(err);
-        res.status(500).json({message:"internal server err"});
-    }
-
-  });
 // Get User by ID
-router.get('/:id', async (req, res) => {
-    User.findById(req.params.id,function(err,data){
-      if(err) throw err;
-      res.json(data);
-    })
-  });
+router.get("/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "internal server err" });
+  }
+});
 
 //Add User 
 
-router.post("/add", async function (req, res, next) {
-    User.create(req.body);
-    res.send("Done");
-  });
 
+router.post("/", async (req, res) => {
+  const newuser = await User.create(req.body);
+  res.json(newuser);
+});
+
+//Delete User  
+
+router.put("/:id", async (req, res) => {
+  const updatedUser = await User.findByIdAndUpdate(req.params.id,req.body, {new:true});
+   res.json({ message: "User updated succesfully" });
+ });
   
 //Delete User  
-router.delete('/:id',function(req, res, next) {
-    User.deleteOne({ _id: req.params.id })
-    .then(() => res.status(200).json({ msg: `Post with id : ${req.params.id} has been removed` }))
-    .catch(err => res.status(400).json({ error: err }))
-})
-
+router.delete("/:id", async (req, res) => {
+  await User.findOneAndDelete(req.params.id);
+  res.json({ message: "user deleted succesfully" });
+});
 module.exports = router;
