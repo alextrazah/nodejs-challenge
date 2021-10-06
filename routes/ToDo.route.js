@@ -14,10 +14,7 @@ router.get("/",  async (req, res) =>{
   });
 
 
-  router.get("/test", async (req, res) =>{
-    res.send("data");
-
-  });
+  
 // Get todo by ID
 router.get('/:id',async (req, res) => {
     Todo.findById(req.params.id,function(err,data){
@@ -28,10 +25,9 @@ router.get('/:id',async (req, res) => {
 
 //Add todo 
 
-router.post("/add", async (req, res) => {
-    const obj = JSON.parse(JSON.stringify(req.body));
-    Todo.create(obj);
-    res.send("Done");
+router.post("/", async (req, res) => {
+    const createToDo = await Todo.create(req.body);
+    res.json(createToDo);
   });
 
 

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/Users.model');
-var { sendhtmlmail } = require("../mailer");
 // Get all todo
 router.get("/",  async (req, res) =>{
     try{
@@ -35,7 +34,7 @@ router.get("/",  async (req, res) =>{
 
   router.get("/mail",  async (req, res) =>{
     try{
-        await sendhtmlmail("mohamedaziz.sahnoun@esprit.tn");
+      
         res.send("mail sended");
     }catch(err){
         console.log(err);
@@ -54,8 +53,7 @@ router.get('/:id', async (req, res) => {
 //Add User 
 
 router.post("/add", async function (req, res, next) {
-    const obj = JSON.parse(JSON.stringify(req.body));
-    User.create(obj);
+    User.create(req.body);
     res.send("Done");
   });
 
