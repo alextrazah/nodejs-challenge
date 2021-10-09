@@ -5,6 +5,7 @@ var Todo = require("../models/ToDo.model");
 // Get all todo
 router.get("/", async (req, res) => {
   try {
+console.log(req);
     const todos = await Todo.find({});
     res.json(todos);
   } catch (err) {

@@ -4,8 +4,12 @@ const cors = require("cors");
 const path = require('path');
 const ejs = require('ejs');
 const fs = require('fs');
-
+//call the cron
+const userCron = require('./cronjob/cron');
+//strategies
+ require('./passport-strategies/bearer')
 //import routes
+const authRouter = require("./routes/authetification.route");
 const todoRouter = require("./routes/ToDo.route");
 const userRouter = require("./routes/Users.route");
 const mailRouter = require("./routes/mailApi.route");
@@ -23,7 +27,7 @@ app.use(express.json({ limit: "50mb" }));
 app.use(cors());
 app.use(morgan("dev"));
 
-
+app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/todos", todoRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/mail", mailRouter);
