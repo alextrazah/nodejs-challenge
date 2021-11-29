@@ -16,7 +16,7 @@
 <% if(contacts.length > 0) {  %>
 <% for(var i=0 ; i< contacts.length ; i++) {    %>
 <tr>
-            <td><%= contacts[i].createdAt   %></td>
+            <td><%= moment(contacts[i].createdAt).format('Do MMMM, YYYY') %></td>
 		<td><%= contacts[i].nom   %></td>
 		<td><%= contacts[i].mail   %></td>
 		<td><%= contacts[i].sujet   %></td>
