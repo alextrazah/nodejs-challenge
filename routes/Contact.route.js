@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var Contact = require("../models/Contact");
+var subs = require("../models/Subs");
 var moment = require('moment');
 
 // Get all contacts
@@ -31,23 +32,32 @@ router.get("/all",async (req, res) => {
 
 
 
-// Get contact by ID
-router.get("/:id", async (req, res) => {
-  try {
-    const Contact = await Contact.findById(req.params.id);
-    res.json(Contact);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ message: "internal server err" });
+
+
+router.get("/subs",async (req, res) => {
+    try {
+     
+      const mysubs = await subs.find({});
+      res.render("subs", { allsubs: mysubs, moment: moment  });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ message: "internal server err" });
+    }
   }
-});
+);
 
 //Add contact
 
 router.post("/", async (req, res) => {
-    console.log(req);
+  //  console.log(req);
   const newcontact = await Contact.create(req.body);
   res.json(newcontact);
+});
+
+router.post("/addsub", async (req, res) => {
+  //  console.log(req);
+  const newsub = await subs.create(req.body);
+  res.json(newsub);
 });
 
 
@@ -59,4 +69,12 @@ router.get("/delete/:id", async (req, res) => {
       res.render("contact", { contacts: allcontacts, moment: moment  });
 
 });
+
+//Delete contact
+router.get("/deletesub/:id", async (req, res) => {
+    await subs.findByIdAndDelete(req.params.id);
+    const allsubs = await subs.find({});
+        res.render("subs", { allsubs: allsubs, moment: moment  });
+  
+  });
 module.exports = router;

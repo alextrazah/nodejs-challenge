@@ -1,0 +1,35 @@
+<html>
+<body>
+<h2>  List des contacts :  </h2>
+
+
+<table border="2">
+
+	<tr>
+        <td>Date</td>
+		<td>email</td>
+		<td>Action</td>
+	</tr>
+<% if(allsubs.length > 0) {  %>
+<% for(var i=0 ; i< allsubs.length ; i++) {    %>
+<tr>
+            <td><%= moment(allsubs[i].createdAt).format('Do MMMM, YYYY') %></td>
+		<td><%= allsubs[i].mail   %></td>
+		
+		
+		<td>
+		
+			<a href="/api/v1/contact/deletesub/<%= allsubs[i]._id %>">Remove</a>
+	
+		</td>
+</tr>
+<%   }  %>
+<%   }else{  %>
+<h3> No subscription not found !!! </3>
+<%   }  %>
+</table>
+
+</body>
+
+
+</html>
