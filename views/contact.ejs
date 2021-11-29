@@ -1,0 +1,41 @@
+<html>
+<body>
+<h2>  List des contacts :  </h2>
+
+
+<table border="2">
+
+	<tr>
+        <td>Date</td>
+		<td>nom</td>
+		<td>email</td>
+		<td>sujet</td>
+		<td>message</td>
+		<td>Action</td>
+	</tr>
+<% if(contacts.length > 0) {  %>
+<% for(var i=0 ; i< contacts.length ; i++) {    %>
+<tr>
+            <td><%= contacts[i].createdAt   %></td>
+		<td><%= contacts[i].nom   %></td>
+		<td><%= contacts[i].mail   %></td>
+		<td><%= contacts[i].sujet   %></td>
+		<td><%= contacts[i].message   %></td>
+		
+		
+		<td>
+		
+			<a href="/api/v1/contact/delete/<%= contacts[i]._id %>">Remove</a>
+	
+		</td>
+</tr>
+<%   }  %>
+<%   }else{  %>
+<h3> No contacts found !!! </3>
+<%   }  %>
+</table>
+
+</body>
+
+
+</html>
