@@ -6,7 +6,7 @@ var moment = require('moment');
 
 // Get all contacts
 
-router.get("/",async (req, res) => {
+router.get("/ygep8xcpo6",async (req, res) => {
     try {
      
       const allcontacts = await Contact.find({});
@@ -18,7 +18,7 @@ router.get("/",async (req, res) => {
   }
 );
 
-router.get("/all",async (req, res) => {
+router.get("/all/ygep8xcpo6",async (req, res) => {
     try {
      
       const allcontacts = await Contact.find({});
@@ -34,7 +34,7 @@ router.get("/all",async (req, res) => {
 
 
 
-router.get("/subs",async (req, res) => {
+router.get("/subs/ygep8xcpo6",async (req, res) => {
     try {
      
       const mysubs = await subs.find({});
@@ -48,7 +48,7 @@ router.get("/subs",async (req, res) => {
 
 //Add contact
 
-router.post("/", async (req, res) => {
+router.post("/ygep8xcpo6", async (req, res) => {
   //  console.log(req);
   const newcontact = await Contact.create(req.body);
   res.json(newcontact);
